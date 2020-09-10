@@ -11,9 +11,9 @@ export interface IUserContext {
 
 export interface IUser {
   id?: number;
-    name?: string;
-    ID?: string;
-    passwordHash?: string;
-    role?: string[];
-    token?: string;
+  name?: string;
+  ID?: string;
+  passwordHash?: string;
+  role?: string[];
+  token?: string;
 }

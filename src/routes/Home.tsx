@@ -1,7 +1,7 @@
-import React from 'react';
-import { gql, useQuery } from '@apollo/client';
-import Movie from 'components/Movie';
-import { IMovie } from 'interfaces';
+import React from "react";
+import { gql, useQuery } from "@apollo/client";
+import Movie from "components/Movie";
+import { IMovie } from "interfaces";
 
 const GET_MOVIE = gql`
   query {
@@ -24,7 +24,7 @@ function Home() {
         ? data.movies.map((movie: IMovie) => (
             <Movie key={movie.id} id={movie.id} name={movie.name} />
           ))
-        : 'No Movie...'}
+        : "No Movie..."}
     </div>
   );
 }
