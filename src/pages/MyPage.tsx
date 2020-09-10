@@ -1,12 +1,9 @@
-import React, { useContext } from 'react';
-import { UserContext } from 'contexts';
+import React from "react";
 
 function MyPage({ history }: any) {
-  const { user } = useContext(UserContext);
-
   if (!user?.ID) {
-    alert('로그인 페이지로 이동합니다.');
-    history.push('/login');
+    alert("로그인 페이지로 이동합니다.");
+    history.push("/login");
   }
 
   return (

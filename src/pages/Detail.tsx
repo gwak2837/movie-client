@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
+import { IMovieVars, IMovieData } from "interfaces";
 
 const GET_MOVIE = gql`
   query getMovie($id: Int!) {
@@ -14,7 +15,7 @@ const GET_MOVIE = gql`
 
 function Detail() {
   const { id } = useParams();
-  const { loading, error, data } = useQuery(GET_MOVIE, {
+  const { loading, error, data } = useQuery<IMovieData, IMovieVars>(GET_MOVIE, {
     variables: { id: Number(id) },
   });
 

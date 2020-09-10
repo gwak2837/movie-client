@@ -1,13 +1,13 @@
 import React from "react";
 import { HashRouter, Route, Redirect } from "react-router-dom";
 import Navigation from "components/Navigation";
-import Home from "routes/Home";
-import About from "routes/About";
-import Detail from "routes/Detail";
-import Signup from "routes/Signup";
-import Login from "routes/Login";
-import Logout from "routes/Logout";
-import MyPage from "routes/MyPage";
+import Home from "pages/Home";
+import About from "pages/About";
+import Detail from "pages/Detail";
+import Signup from "pages/Signup";
+import Login from "pages/Login";
+import Logout from "pages/Logout";
+import MyPage from "pages/MyPage";
 
 export default () => (
   <HashRouter>

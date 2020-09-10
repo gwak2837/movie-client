@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import React, { useState, useEffect } from "react";
+import { gql, useMutation } from "@apollo/client";
+import { ISignupData, ISignupVars } from "interfaces";
 
 const SIGNUP = gql`
   mutation signup($ID: String!, $password: String!, $name: String!) {
@@ -8,14 +9,14 @@ const SIGNUP = gql`
 `;
 
 function Signup() {
-  const [ID, setID] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [signup, { data }] = useMutation(SIGNUP);
+  const [ID, setID] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [signup, { data }] = useMutation<ISignupData, ISignupVars>(SIGNUP);
 
   useEffect(() => {
-    if (data?.signup === true) alert('회원가입에 성공했습니다');
-    else if (data?.signup === false) alert('회원가입에 실패했습니다');
+    if (data?.signup === true) alert("회원가입에 성공했습니다");
+    else if (data?.signup === false) alert("회원가입에 실패했습니다");
   }, [data]); //DEBUG
 
   return (
