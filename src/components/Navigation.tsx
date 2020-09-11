@@ -6,7 +6,6 @@ import { GET_CURRENT_USER } from "apollo/localQuery";
 
 function Navigation() {
   const currentUser = useQuery<ICurrentUserData>(GET_CURRENT_USER);
-
   const user = currentUser.data?.user;
 
   return (
