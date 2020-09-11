@@ -10,11 +10,10 @@ const SIGNUP = gql`
   }
 `;
 
-function Signup() {
+function Signup({ history }: any) {
   const [ID, setID] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-
   const [signup, signupResult] = useMutation<ISignupData, ISignupVars>(SIGNUP);
 
   useEffect(() => {
@@ -25,6 +24,7 @@ function Signup() {
     }
   }, [signupResult.data]);
 
+  if (signupResult.data?.signup === true) history.replace("/login");
   if (signupResult.loading) return <Loading />;
   if (signupResult.error) return <Error msg={signupResult.error.message} />;
 
