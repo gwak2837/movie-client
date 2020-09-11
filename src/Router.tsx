@@ -8,18 +8,27 @@ import Signup from "pages/Signup";
 import Login from "pages/Login";
 import Logout from "pages/Logout";
 import MyPage from "pages/MyPage";
+import { useQuery } from "@apollo/client";
+import { ICurrentUserData } from "interfaces";
+import { GET_CURRENT_USER } from "apollo/localQuery";
 
-export default () => (
-  <HashRouter>
-    <Navigation />
-    <br />
-    <Route path="/" component={Home} exact={true} />
-    <Route path="/about" component={About} />
-    <Route path="/movie/:id" component={Detail} />
-    <Route path="/signup" component={Signup} />
-    <Route path="/login" component={Login} />
-    <Route path="/logout" component={Logout} />
-    <Route path="/@:id" component={MyPage} />
-    <Redirect from="*" to="/" />
-  </HashRouter>
-);
+function Router() {
+  useQuery<ICurrentUserData>(GET_CURRENT_USER);
+
+  return (
+    <HashRouter>
+      <Navigation />
+      <br />
+      <Route path="/" component={Home} exact={true} />
+      <Route path="/about" component={About} />
+      <Route path="/movie/:id" component={Detail} />
+      <Route path="/signup" component={Signup} />
+      <Route path="/login" component={Login} />
+      <Route path="/logout" component={Logout} />
+      <Route path="/@:id" component={MyPage} />
+      <Redirect from="*" to="/" />
+    </HashRouter>
+  );
+}
+
+export default Router;
