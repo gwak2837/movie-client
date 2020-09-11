@@ -29,7 +29,7 @@ export interface IUser {
 }
 
 export interface ILoginData {
-  login: IUser;
+  login: IUser | null;
 }
 
 export interface ILoginVars {
@@ -49,4 +49,8 @@ export interface ISignupVars {
   name: string;
   ID: string;
   password: string;
+}
+
+export interface ICurrentUserData {
+  user: IUser;
 }
