@@ -1,7 +1,13 @@
 import React from "react";
+import { useQuery } from "@apollo/client";
+import { ICurrentUserData } from "interfaces";
+import { GET_CURRENT_USER } from "apollo/localQuery";
 
 function MyPage({ history }: any) {
-  if (!user?.ID) {
+  const currentUser = useQuery<ICurrentUserData>(GET_CURRENT_USER);
+  const user = currentUser.data?.user;
+
+  if (user === null) {
     alert("로그인 페이지로 이동합니다.");
     history.push("/login");
   }
