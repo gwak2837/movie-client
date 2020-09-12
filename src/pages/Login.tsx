@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { ILoginData, ILoginVars } from "interfaces";
-import { currentUserVar } from "apollo/client";
+import { currentUserVar } from "apollo/cache";
 import Loading from "components/Loading";
 import Error from "components/Error";
 

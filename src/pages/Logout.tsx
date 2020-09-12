@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { ILogoutData } from "interfaces";
-import { currentUserVar } from "apollo/client";
+import { currentUserVar } from "apollo/cache";
 import Loading from "components/Loading";
 import Error from "components/Error";
 
@@ -16,8 +16,8 @@ function Logout({ history }: any) {
 
   useEffect(() => {
     if (logoutResult.data?.logout === true) {
-      alert("로그아웃에 성공했습니다");
       currentUserVar(null);
+      alert("로그아웃에 성공했습니다");
     } else if (logoutResult.data?.logout === false) {
       alert("로그아웃에 실패했습니다");
     }

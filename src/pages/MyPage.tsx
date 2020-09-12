@@ -1,5 +1,5 @@
 import React from "react";
-import { currentUserVar } from "apollo/client";
+import { currentUserVar } from "apollo/cache";
 
 function MyPage({ history }: any) {
   const user = currentUserVar();
