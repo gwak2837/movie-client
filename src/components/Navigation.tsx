@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { ICurrentUserData } from "interfaces";
-import { GET_CURRENT_USER } from "apollo/localQuery";
+import { GET_CURRENT_USER } from "apollo/cache";
 
 function Navigation() {
   const currentUser = useQuery<ICurrentUserData>(GET_CURRENT_USER);
