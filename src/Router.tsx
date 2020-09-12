@@ -8,13 +8,8 @@ import Signup from "pages/Signup";
 import Login from "pages/Login";
 import Logout from "pages/Logout";
 import MyPage from "pages/MyPage";
-import { useQuery } from "@apollo/client";
-import { ICurrentUserData } from "interfaces";
-import { GET_CURRENT_USER } from "apollo/cache";
 
 function Router() {
-  useQuery<ICurrentUserData>(GET_CURRENT_USER);
-
   return (
     <HashRouter>
       <Navigation />

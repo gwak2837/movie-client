@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { gql, useMutation } from "@apollo/client";
-import { ILogoutData } from "interfaces";
-import { currentUserVar } from "apollo/cache";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { ICurrentUserData, ILogoutData } from "interfaces";
+import { currentUserVar, GET_CURRENT_USER } from "apollo/cache";
 import Loading from "components/Loading";
 import Error from "components/Error";
+import { useHistory } from "react-router-dom";
 
 const LOGOUT = gql`
   mutation {
@@ -11,19 +12,22 @@ const LOGOUT = gql`
   }
 `;
 
-function Logout({ history }: any) {
+function Logout() {
+  const history = useHistory();
+  const currentUser = useQuery<ICurrentUserData>(GET_CURRENT_USER);
   const [logout, logoutResult] = useMutation<ILogoutData>(LOGOUT);
 
   useEffect(() => {
     if (logoutResult.data?.logout === true) {
       currentUserVar(null);
       alert("로그아웃에 성공했습니다");
+      history.replace("/");
     } else if (logoutResult.data?.logout === false) {
       alert("로그아웃에 실패했습니다");
     }
-  }, [logoutResult.data]);
+  }, [logoutResult.data, history]);
 
-  if (currentUserVar() === null) history.replace("/");
+  if (currentUser.data?.user === null) history.replace("/login");
   if (logoutResult.loading) return <Loading />;
   if (logoutResult.error) return <Error msg={logoutResult.error.message} />;
 

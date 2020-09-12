@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { gql, useMutation } from "@apollo/client";
-import { ISignupData, ISignupVars } from "interfaces";
+import { useHistory } from "react-router-dom";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { ICurrentUserData, ISignupData, ISignupVars } from "interfaces";
 import Loading from "components/Loading";
 import Error from "components/Error";
+import { GET_CURRENT_USER } from "apollo/cache";
 
 const SIGNUP = gql`
   mutation signup($ID: String!, $password: String!, $name: String!) {
@@ -10,33 +12,40 @@ const SIGNUP = gql`
   }
 `;
 
-function Signup({ history }: any) {
+function Signup() {
   const [ID, setID] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const history = useHistory();
+  const currentUser = useQuery<ICurrentUserData>(GET_CURRENT_USER);
   const [signup, signupResult] = useMutation<ISignupData, ISignupVars>(SIGNUP);
 
   useEffect(() => {
     if (signupResult.data?.signup === true) {
       alert("회원가입에 성공했습니다");
+      history.replace("/login");
     } else if (signupResult.data?.signup === false) {
       alert("회원가입에 실패했습니다");
     }
-  }, [signupResult.data]);
+  }, [signupResult.data, history]);
 
-  if (signupResult.data?.signup === true) history.replace("/login");
+  if (currentUser.data?.user) history.replace("/");
   if (signupResult.loading) return <Loading />;
   if (signupResult.error) return <Error msg={signupResult.error.message} />;
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+    signup({ variables: { ID, password, name } });
+    setID("");
+    setPassword("");
+    setName("");
+  }
 
   return (
     <div>
       <div>회원가입</div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          signup({ variables: { ID, password, name } });
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         <input
           value={ID}
           onChange={(e) => setID(e.target.value)}

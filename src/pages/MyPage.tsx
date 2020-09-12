@@ -1,13 +1,15 @@
+import { useQuery } from "@apollo/client";
+import { GET_CURRENT_USER } from "apollo/cache";
+import { ICurrentUserData } from "interfaces";
 import React from "react";
-import { currentUserVar } from "apollo/cache";
+import { useHistory } from "react-router-dom";
 
-function MyPage({ history }: any) {
-  const user = currentUserVar();
+function MyPage() {
+  const history = useHistory();
+  const currentUser = useQuery<ICurrentUserData>(GET_CURRENT_USER);
+  const user = currentUser.data?.user;
 
-  if (!user) {
-    alert("로그인 페이지로 이동합니다.");
-    history.push("/login");
-  }
+  if (user === null) history.replace("/login");
 
   return (
     <div>
