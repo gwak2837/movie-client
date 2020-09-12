@@ -7,7 +7,7 @@ const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
 });
 
-const contextSetter = (_: GraphQLRequest, { headers }: any) => {
+function contextSetter(_: GraphQLRequest, { headers }: any) {
   // get the authentication token from local storage if it exists
   const token = currentUserVar()?.token;
   // return the headers to the context so httpLink can read them
@@ -17,7 +17,7 @@ const contextSetter = (_: GraphQLRequest, { headers }: any) => {
       authorization: token ? token : "",
     },
   };
-};
+}
 
 export const client = new ApolloClient({
   link: setContext(contextSetter).concat(httpLink),
