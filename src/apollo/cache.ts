@@ -1,4 +1,4 @@
-import { makeVar, gql, InMemoryCache } from "@apollo/client";
+import { InMemoryCache, makeVar, gql } from "@apollo/client";
 import { IUser } from "interfaces";
 
 // Local states

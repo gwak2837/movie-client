@@ -12,13 +12,11 @@ export interface IMovieVars {
   id: number;
 }
 
-export interface IMoviesData {
-  movies: IMovie[];
-}
 export interface ILogin {
   ID: string;
   passwordHash: string;
 }
+
 export interface IUser {
   id: number;
   name: string;
@@ -53,4 +51,8 @@ export interface ISignupVars {
 
 export interface ICurrentUserData {
   user: IUser;
+}
+
+export interface IMoviesData {
+  movies: IMovie[];
 }

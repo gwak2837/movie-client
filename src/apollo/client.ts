@@ -2,11 +2,11 @@ import { ApolloClient, createHttpLink, GraphQLRequest } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { cache, currentUserVar } from "apollo/cache";
 
-// Authenticate using HTTP header
 const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
 });
 
+// Authenticate using HTTP header
 function contextSetter(_: GraphQLRequest, { headers }: any) {
   // get the authentication token from local storage if it exists
   const token = currentUserVar()?.token;
