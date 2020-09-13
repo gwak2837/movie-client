@@ -16,17 +16,16 @@ const GET_MOVIE = gql`
 
 function Home() {
   const { loading, error, data } = useQuery<IMoviesData>(GET_MOVIE);
+  const movies = data?.movies.length !== 0 ? data?.movies : null;
 
   if (loading) return <Loading />;
   if (error) return <Error msg={error.message} />;
 
   return (
     <div>
-      {data?.movies
-        ? data.movies.map((movie) => (
-            <Movie key={movie.id} id={movie.id} name={movie.name} />
-          ))
-        : "No Movie..."}
+      {movies?.map((movie) => (
+        <Movie key={movie.id} id={movie.id} name={movie.name} />
+      )) ?? "No movie..."}
     </div>
   );
 }
