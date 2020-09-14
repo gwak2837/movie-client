@@ -17,21 +17,23 @@ const GET_MOVIE = gql`
 
 function Detail() {
   const { id } = useParams<{ id: string }>();
-  const { loading, error, data } = useQuery<IMovieData, IMovieVars>(GET_MOVIE, {
+  const movieData = useQuery<IMovieData, IMovieVars>(GET_MOVIE, {
     variables: { id: Number(id) },
   });
 
-  if (loading) return <Loading />;
-  if (error) return <Error msg={error.message} />;
+  const movie = movieData.data?.movie;
+
+  if (movieData.loading) return <Loading />;
+  if (movieData.error) return <Error msg={movieData.error.message} />;
 
   // 서버로부터 받은 데이터가 있으면 영화 정보를 반환하고
   // 없으면 'No Detail...' 반환
   return (
     <div>
-      {data?.movie ? (
+      {movie ? (
         <>
-          <div>Name : {data.movie.name}</div>
-          <div>Rating : {data.movie.rating}</div>
+          <div>Name : {movie.name}</div>
+          <div>Rating : {movie.rating}</div>
         </>
       ) : (
         "No Detail..."

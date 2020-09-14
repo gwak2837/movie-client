@@ -15,11 +15,13 @@ const GET_MOVIE = gql`
 `;
 
 function Home() {
-  const { loading, error, data } = useQuery<IMoviesData>(GET_MOVIE);
-  const movies = data?.movies.length !== 0 ? data?.movies : null;
+  const moviesResult = useQuery<IMoviesData>(GET_MOVIE);
 
-  if (loading) return <Loading />;
-  if (error) return <Error msg={error.message} />;
+  const moviesData = moviesResult.data?.movies;
+  const movies = moviesData?.length !== 0 ? moviesData : undefined;
+
+  if (moviesResult.loading) return <Loading />;
+  if (moviesResult.error) return <Error msg={moviesResult.error.message} />;
 
   return (
     <div>
